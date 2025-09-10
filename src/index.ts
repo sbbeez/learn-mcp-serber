@@ -4,7 +4,7 @@ import { z } from "zod";
 
 // Create server instance
 const server = new McpServer({
-    name: "sample-calculator-using-ai",
+    name: "Todo Server",
     version: "1.0.0",
     capabilities: {
         resources: {},
@@ -15,18 +15,18 @@ const server = new McpServer({
     },
 });
 
-server.registerTool("add",
+server.registerTool("add-todod",
     {
-        title: "Addition Tool",
-        description: "Add two numbers",
-        inputSchema: { a: z.number(), b: z.number() }
+        title: "Add Todo Tool",
+        description: "Add a todo",
+        inputSchema: { title: z.string(), description: z.string() }
     },
-    async ({ a, b }) => {
-        console.error("Adding two numbers", a, b);
+    async ({ title, description }) => {
+        console.error("Adding todo", title, description);
 
 
         const result = await server.server.elicitInput({
-            message: "Are you sure you want to add these numbers?",
+            message: "Are you sure you want to add this todo?",
             requestedSchema: {
                 type: "object",
                 properties: {
@@ -38,12 +38,12 @@ server.registerTool("add",
         if (result.action === "accept" && result.content?.confirmation === true) {
             console.error("User confirmed the addition");
             return {
-                content: [{ type: "text", text: String(a + b) }]
+                content: [{ type: "text", text: "Todo added successfully" }]
             }
         }
 
         return {
-            content: [{ type: "text", text: "You did not confirm the addition" }]
+            content: [{ type: "text", text: "You cancelled to add this todo, so its not added in the database" }]
         }
     }
 );
