@@ -1,0 +1,3 @@
+node_modules/
+fast-agent/.venv
+build/

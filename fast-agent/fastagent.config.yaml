@@ -1,0 +1,12 @@
+default_model: "passthrough"
+logger:
+  level: "error"
+  type: "console"
+
+mcp:
+  servers:
+    sample-calculator-using-ai:
+      command: "npx" 
+      args: ["node", "/Users/senthilbalajiganesan/Desktop/mcp-server/build/index.js"]
+      elicitation:
+        mode: "forms"
